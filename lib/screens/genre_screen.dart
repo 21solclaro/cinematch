@@ -1,3 +1,4 @@
+import 'package:cinematch/screens/runtime_screen.dart';
 import 'package:flutter/material.dart';
 
 class GenreScreen extends StatelessWidget {
@@ -66,7 +67,8 @@ class GenreScreen extends StatelessWidget {
         padding: const EdgeInsets.all(32.0),
         child: ElevatedButton(
           onPressed: () {
-            // Navigator.push(context, MaterialPageRoute(builder: (context) => NextScreen()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const RuntimeScreen()));
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 50),
