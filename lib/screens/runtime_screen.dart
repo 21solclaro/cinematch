@@ -1,60 +1,53 @@
+import 'package:cinematch/providers/selection_provider.dart';
+import 'package:cinematch/screens/movie_list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RuntimeScreen extends StatefulWidget {
-  const RuntimeScreen({super.key});
-
-  @override
-  _RuntimeScreenState createState() => _RuntimeScreenState();
-}
-
-class _RuntimeScreenState extends State<RuntimeScreen> {
-  double _selectedDuration = 0;
+class RuntimeSelectionScreen extends ConsumerWidget {
+  const RuntimeSelectionScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final runtime = ref.watch(runtimeSelectionProvider);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('視聴時間を選択'),
+        title: const Text('Select Runtime'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('0h'),
-                Text('4h'),
-              ],
-            ),
-          ),
+        children: [
+          Text('$runtime min'),
           Slider(
-            value: _selectedDuration,
+            value: runtime.toDouble(),
             min: 0,
-            max: 4,
-            divisions: 8,
-            label: '${_selectedDuration.toStringAsFixed(1)}h',
+            max: 240,
+            divisions: 24,
+            label: '$runtime',
             onChanged: (double value) {
-              setState(() {
-                _selectedDuration = value;
-              });
+              ref
+                  .read(runtimeSelectionProvider.notifier)
+                  .setRuntime(value.toInt());
             },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text('選択された時間: ${_selectedDuration.toStringAsFixed(1)}時間'),
           ),
         ],
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(32.0),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const MovieListScreen()));
+          },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 50),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
-          child: const Text('次へ'),
+          child: const Text('Next'),
         ),
       ),
     );

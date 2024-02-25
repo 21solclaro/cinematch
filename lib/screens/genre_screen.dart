@@ -1,11 +1,14 @@
+import 'package:cinematch/providers/selection_provider.dart';
 import 'package:cinematch/screens/runtime_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class GenreScreen extends StatelessWidget {
+class GenreScreen extends ConsumerWidget {
   const GenreScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedGenres = ref.watch(genreSelectionProvider);
     final List<Map<String, dynamic>> genres = [
       {'name': 'Action', 'icon': Icons.flash_on, 'id': 28},
       {'name': 'Adventure', 'icon': Icons.explore, 'id': 12},
@@ -30,7 +33,7 @@ class GenreScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ジャンルを選択'),
+        title: const Text('Select Genre'),
       ),
       body: GridView.builder(
         padding: const EdgeInsets.all(16),
@@ -43,22 +46,34 @@ class GenreScreen extends StatelessWidget {
         itemCount: genres.length,
         itemBuilder: (context, index) {
           final genre = genres[index];
-          return Card(
-            color: Colors.blueGrey[100],
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(genre['icon'], size: 40, color: Colors.blueGrey[800]),
-                const SizedBox(height: 8),
-                Text(
-                  genre['name'],
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blueGrey[800],
+          final isSelected = selectedGenres.contains(genre['id']);
+          return InkWell(
+            onTap: () {
+              isSelected
+                  ? ref
+                      .read(genreSelectionProvider.notifier)
+                      .removeGenre(genre['id'])
+                  : ref
+                      .read(genreSelectionProvider.notifier)
+                      .addGenre(genre['id']);
+            },
+            child: Card(
+              color: isSelected ? Colors.blue : Colors.blueGrey[100],
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(genre['icon'], size: 40, color: Colors.blueGrey[800]),
+                  const SizedBox(height: 8),
+                  Text(
+                    genre['name'],
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueGrey[800],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },
@@ -66,17 +81,19 @@ class GenreScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(32.0),
         child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const RuntimeScreen()));
-          },
+          onPressed: selectedGenres.isNotEmpty
+              ? () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const RuntimeSelectionScreen()))
+              : null,
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 50),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          child: const Text('次へ'),
+          child: const Text('Next'),
         ),
       ),
     );
