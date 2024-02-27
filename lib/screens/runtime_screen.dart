@@ -1,5 +1,5 @@
 import 'package:cinematch/providers/selection_provider.dart';
-import 'package:cinematch/screens/movie_list_screen.dart';
+import 'package:cinematch/screens/selected_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,7 +8,7 @@ class RuntimeSelectionScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final runtime = ref.watch(runtimeSelectionProvider);
+    final runtime = ref.watch(selectionCriteriaProvider).runtime;
 
     return Scaffold(
       appBar: AppBar(
@@ -26,7 +26,7 @@ class RuntimeSelectionScreen extends ConsumerWidget {
             label: '$runtime',
             onChanged: (double value) {
               ref
-                  .read(runtimeSelectionProvider.notifier)
+                  .read(selectionCriteriaProvider.notifier)
                   .setRuntime(value.toInt());
             },
           ),
@@ -35,12 +35,12 @@ class RuntimeSelectionScreen extends ConsumerWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(32.0),
         child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const MovieListScreen()));
-          },
+          onPressed: runtime > 0
+              ? () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SelectedScreen()))
+              : null,
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 50),
             shape: RoundedRectangleBorder(

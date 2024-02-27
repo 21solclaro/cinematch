@@ -1,37 +1,24 @@
+import 'package:cinematch/models/selection_criteria.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// Genre
-class GenreSelectionNotifier extends StateNotifier<List<int>> {
-  GenreSelectionNotifier() : super([]);
+class SelectionCriteriaNotifier extends StateNotifier<SelectionCriteria> {
+  SelectionCriteriaNotifier()
+      : super(SelectionCriteria(genres: [], runtime: 0));
 
-  void addGenre(int genreId) {
-    if (!state.contains(genreId)) {
-      state = [...state, genreId];
-    }
+  void addGenre(int genre) {
+    state = state.addGenre(genre);
   }
 
-  void removeGenre(int genreId) {
-    state = state.where((id) => id != genreId).toList();
+  void removeGenre(int genre) {
+    state = state.removeGenre(genre);
   }
-
-  bool isSelected(int genreId) => state.contains(genreId);
-}
-
-// Runtime
-class RuntimeSelectionNotifier extends StateNotifier<int> {
-  RuntimeSelectionNotifier() : super(0);
 
   void setRuntime(int runtime) {
-    state = runtime;
+    state = state.setRuntime(runtime);
   }
 }
 
-final genreSelectionProvider =
-    StateNotifierProvider<GenreSelectionNotifier, List<int>>((ref) {
-  return GenreSelectionNotifier();
-});
-
-final runtimeSelectionProvider =
-    StateNotifierProvider<RuntimeSelectionNotifier, int>((ref) {
-  return RuntimeSelectionNotifier();
+final selectionCriteriaProvider =
+    StateNotifierProvider<SelectionCriteriaNotifier, SelectionCriteria>((ref) {
+  return SelectionCriteriaNotifier();
 });
