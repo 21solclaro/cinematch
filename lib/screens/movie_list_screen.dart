@@ -1,51 +1,31 @@
-import 'package:cinematch/models/movie.dart';
+import 'package:cinematch/providers/selection_provider.dart';
+import 'package:cinematch/screens/home_screen.dart';
+import 'package:cinematch/services/api_service.dart';
 import 'package:cinematch/widgets/movie_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'dart:convert';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MovieListScreen extends StatefulWidget {
+class MovieListScreen extends ConsumerWidget {
   const MovieListScreen({super.key});
 
   @override
-  State<MovieListScreen> createState() => _MovieListScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selection = ref.watch(selectionCriteriaProvider);
 
-class _MovieListScreenState extends State<MovieListScreen> {
-  Future<List<Movie>> _fetchMovieList() async {
-    final uri = Uri.https('api.themoviedb.org', '/3/movie/now_playing', {
-      'api_key': dotenv.env['TMDB_API_KEY'],
-      'language': 'ja',
-      'region': 'JP',
-    });
-    final http.Response res = await http.get(uri);
-
-    if (res.statusCode == 200) {
-      final Map<String, dynamic> decodedBody = jsonDecode(res.body);
-      final List<dynamic> results = decodedBody['results'];
-      return results.map((dynamic json) => Movie.fromJson(json)).toList();
-    } else {
-      return [];
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Movie List'),
         ),
         body: FutureBuilder(
-          future: _fetchMovieList(),
+          future: fetchMovieList(selection),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasError) {
                 return Text("Error: ${snapshot.error}");
               }
               if (!snapshot.hasData) {
-                return const Text("データが見つかりません");
+                return const Text("404 : NOT FOUND");
               }
               return GridView(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -62,6 +42,23 @@ class _MovieListScreenState extends State<MovieListScreen> {
               return const CircularProgressIndicator();
             }
           },
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: ElevatedButton(
+            onPressed: () {
+              ref.invalidate(selectionCriteriaProvider);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()));
+            },
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(double.infinity, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: const Text('Restart'),
+          ),
         ),
       ),
     );
