@@ -3,14 +3,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SelectionCriteriaNotifier extends StateNotifier<SelectionCriteria> {
   SelectionCriteriaNotifier()
-      : super(SelectionCriteria(genres: [], runtime: 0));
+      : super(SelectionCriteria(genres: [], providers: [], runtime: 0));
 
-  void addGenre(int genre) {
-    state = state.addGenre(genre);
+  void addGenre(int genreId) {
+    state = state.addGenre(genreId);
   }
 
-  void removeGenre(int genre) {
-    state = state.removeGenre(genre);
+  void removeGenre(int genreId) {
+    state = state.removeGenre(genreId);
+  }
+
+  void addProvider(int providerId) {
+    state = state.addProvider(providerId);
+  }
+
+  void removeProvder(int providerId) {
+    state = state.removeProvider(providerId);
   }
 
   void setRuntime(int runtime) {

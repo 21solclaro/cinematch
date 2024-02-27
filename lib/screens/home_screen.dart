@@ -1,4 +1,4 @@
-import 'package:cinematch/screens/genre_screen.dart';
+import 'package:cinematch/screens/provider_selection_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -28,7 +28,8 @@ class HomeScreen extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const GenreScreen()));
+                          builder: (context) =>
+                              const ProviderSelectionScreen()));
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
