@@ -1,3 +1,6 @@
+import 'package:cinematch/const/genres.dart';
+import 'package:cinematch/const/providers.dart';
+
 class SelectionCriteria {
   SelectionCriteria({
     required this.genres,
@@ -53,5 +56,25 @@ class SelectionCriteria {
       providers: providers,
       runtime: newRuntime,
     );
+  }
+
+  List<dynamic> get providerNamesList {
+    return providers.map((id) {
+      final provider = providerNames.firstWhere(
+        (element) => element['provider_id'] == id,
+        orElse: () => {'provider_name': 'Unknown'},
+      );
+      return provider['provider_name'];
+    }).toList();
+  }
+
+  List<dynamic> get genreNamesList {
+    return genres.map((id) {
+      final genre = genreNames.firstWhere(
+        (element) => element['genre_id'] == id,
+        orElse: () => {'genre_name': 'Unknown'},
+      );
+      return genre['genre_name'];
+    }).toList();
   }
 }

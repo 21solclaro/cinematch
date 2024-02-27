@@ -1,11 +1,11 @@
-import 'package:cinematch/const/genre.dart';
+import 'package:cinematch/const/genres.dart';
 import 'package:cinematch/providers/selection_provider.dart';
-import 'package:cinematch/screens/runtime_screen.dart';
+import 'package:cinematch/screens/runtime_selection_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class GenreScreen extends ConsumerWidget {
-  const GenreScreen({super.key});
+class GenreSelectionScreen extends ConsumerWidget {
+  const GenreSelectionScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,19 +23,19 @@ class GenreScreen extends ConsumerWidget {
           mainAxisSpacing: 16,
           childAspectRatio: 0.8,
         ),
-        itemCount: genres.length,
+        itemCount: genreNames.length,
         itemBuilder: (context, index) {
-          final genre = genres[index];
-          final isSelected = selectedGenres.contains(genre['id']);
+          final genre = genreNames[index];
+          final isSelected = selectedGenres.contains(genre['genre_id']);
           return InkWell(
             onTap: () {
               isSelected
                   ? ref
                       .read(selectionCriteriaProvider.notifier)
-                      .removeGenre(genre['id'])
+                      .removeGenre(genre['genre_id'])
                   : ref
                       .read(selectionCriteriaProvider.notifier)
-                      .addGenre(genre['id']);
+                      .addGenre(genre['genre_id']);
             },
             child: Card(
               color: isSelected ? Colors.blue : Colors.blueGrey[100],
@@ -45,7 +45,7 @@ class GenreScreen extends ConsumerWidget {
                   Icon(genre['icon'], size: 40, color: Colors.blueGrey[800]),
                   const SizedBox(height: 8),
                   Text(
-                    genre['name'],
+                    genre['genre_name'],
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,

@@ -1,6 +1,6 @@
 import 'package:cinematch/const/providers.dart';
 import 'package:cinematch/providers/selection_provider.dart';
-import 'package:cinematch/screens/genre_screen.dart';
+import 'package:cinematch/screens/genre_selection_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,9 +17,9 @@ class ProviderSelectionScreen extends ConsumerWidget {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(32),
-        itemCount: providers.length,
+        itemCount: providerNames.length,
         itemBuilder: (context, index) {
-          final provider = providers[index];
+          final provider = providerNames[index];
           final isSelected =
               selectedProviders.contains(provider['provider_id']);
           return InkWell(
@@ -62,8 +62,10 @@ class ProviderSelectionScreen extends ConsumerWidget {
         padding: const EdgeInsets.all(32.0),
         child: ElevatedButton(
           onPressed: selectedProviders.isNotEmpty
-              ? () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const GenreScreen()))
+              ? () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const GenreSelectionScreen()))
               : null,
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 50),

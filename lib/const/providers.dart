@@ -1,4 +1,4 @@
-final List<Map<String, dynamic>> providers = [
+final List<Map<String, dynamic>> providerNames = [
   {'provider_name': 'Amazon Prime Video', 'provider_id': 9},
   {'provider_name': 'Disney Plus', 'provider_id': 337},
   {'provider_name': 'Hulu', 'provider_id': 15},

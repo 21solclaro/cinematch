@@ -17,15 +17,37 @@ class SelectedScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Providers: ${selection.providers.join(',')}'),
+              Text(
+                'Providers: ${selection.providerNamesList.join(', ')}',
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.blueGrey,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(height: 20),
-              Text('Genres: ${selection.genres.join(',')}',
-                  textAlign: TextAlign.center),
+              Text(
+                'Genres: ${selection.genreNamesList.join(', ')}',
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.blueGrey,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(height: 20),
-              Text('Runtime: ${selection.runtime.toString()} min',
-                  textAlign: TextAlign.center),
+              Text(
+                'Runtime: ${selection.runtime.toString()} min',
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.blueGrey,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),
