@@ -1,5 +1,5 @@
 import 'package:cinematch/models/selection_criteria.dart';
-import 'package:cinematch/providers/selection_provider.dart';
+import 'package:cinematch/providers/selection_criteria_provider.dart';
 import 'package:cinematch/screens/movie_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -62,6 +62,8 @@ class SelectedScreen extends ConsumerWidget {
                     builder: (context) => const MovieListScreen()));
           },
           style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blueGrey,
+            foregroundColor: Colors.white,
             minimumSize: const Size(double.infinity, 50),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),

@@ -1,5 +1,5 @@
 import 'package:cinematch/const/genres.dart';
-import 'package:cinematch/providers/selection_provider.dart';
+import 'package:cinematch/providers/selection_criteria_provider.dart';
 import 'package:cinematch/screens/runtime_selection_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,9 +19,8 @@ class GenreSelectionScreen extends ConsumerWidget {
         padding: const EdgeInsets.all(16),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-          childAspectRatio: 0.8,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
         ),
         itemCount: genreNames.length,
         itemBuilder: (context, index) {
@@ -38,16 +37,21 @@ class GenreSelectionScreen extends ConsumerWidget {
                       .addGenre(genre['genre_id']);
             },
             child: Card(
-              color: isSelected ? Colors.blue : Colors.blueGrey[100],
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0),
+                side: isSelected
+                    ? const BorderSide(color: Colors.blue, width: 2.0)
+                    : BorderSide.none,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(genre['icon'], size: 40, color: Colors.blueGrey[800]),
+                  Icon(genre['icon'], size: 24, color: Colors.blueGrey[800]),
                   const SizedBox(height: 8),
                   Text(
                     genre['genre_name'],
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       fontWeight: FontWeight.bold,
                       color: Colors.blueGrey[800],
                     ),
@@ -68,6 +72,8 @@ class GenreSelectionScreen extends ConsumerWidget {
                       builder: (context) => const RuntimeSelectionScreen()))
               : null,
           style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blueGrey,
+            foregroundColor: Colors.white,
             minimumSize: const Size(double.infinity, 50),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),

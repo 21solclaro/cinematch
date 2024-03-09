@@ -1,7 +1,7 @@
-import 'package:cinematch/providers/selection_provider.dart';
+import 'package:cinematch/providers/selection_criteria_provider.dart';
 import 'package:cinematch/screens/home_screen.dart';
 import 'package:cinematch/services/api_service.dart';
-import 'package:cinematch/widgets/movie_widget.dart';
+import 'package:cinematch/widgets/movie_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,8 +24,9 @@ class MovieListScreen extends ConsumerWidget {
               if (snapshot.hasError) {
                 return Text("Error: ${snapshot.error}");
               }
-              if (!snapshot.hasData) {
-                return const Text("404 : NOT FOUND");
+              if (snapshot.hasData && snapshot.data!.isEmpty) {
+                return const Center(
+                    child: Text("Failed: No entry, please retry."));
               }
               return GridView(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -35,7 +36,7 @@ class MovieListScreen extends ConsumerWidget {
                   crossAxisSpacing: 10,
                 ),
                 children: snapshot.data!
-                    .map((movie) => MovieWidget(movie: movie))
+                    .map((movie) => MovieCard(movie: movie))
                     .toList(),
               );
             } else {
@@ -52,6 +53,8 @@ class MovieListScreen extends ConsumerWidget {
                   MaterialPageRoute(builder: (context) => const HomeScreen()));
             },
             style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blueGrey,
+              foregroundColor: Colors.white,
               minimumSize: const Size(double.infinity, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),

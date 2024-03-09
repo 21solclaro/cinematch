@@ -1,4 +1,4 @@
-import 'package:cinematch/providers/selection_provider.dart';
+import 'package:cinematch/providers/selection_criteria_provider.dart';
 import 'package:cinematch/screens/selected_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,7 +17,11 @@ class RuntimeSelectionScreen extends ConsumerWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('$runtime min'),
+          Text(
+            '$runtime min',
+            style: const TextStyle(fontSize: 32.0),
+          ),
+          const SizedBox(height: 24.0),
           Slider(
             value: runtime.toDouble(),
             min: 0,
@@ -42,6 +46,8 @@ class RuntimeSelectionScreen extends ConsumerWidget {
                       builder: (context) => const SelectedScreen()))
               : null,
           style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blueGrey,
+            foregroundColor: Colors.white,
             minimumSize: const Size(double.infinity, 50),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
