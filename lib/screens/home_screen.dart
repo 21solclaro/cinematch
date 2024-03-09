@@ -1,4 +1,4 @@
-import 'package:cinematch/screens/provider_selection_screen.dart';
+import 'package:cinematch/screens/subscription_service_selection_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              const ProviderSelectionScreen()));
+                              const SubscriptionServiceSelectionScreen()));
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
