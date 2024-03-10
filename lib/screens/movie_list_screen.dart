@@ -17,32 +17,35 @@ class MovieListScreen extends ConsumerWidget {
         appBar: AppBar(
           title: const Text('Movie List'),
         ),
-        body: FutureBuilder(
-          future: fetchMovieList(selection),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasError) {
-                return Text("Error: ${snapshot.error}");
+        body: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: FutureBuilder(
+            future: fetchMovieList(selection),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasError) {
+                  return Text("Error: ${snapshot.error}");
+                }
+                if (snapshot.hasData && snapshot.data!.isEmpty) {
+                  return const Center(
+                      child: Text("Failed: No entry, please retry."));
+                }
+                return GridView(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    childAspectRatio: 2 / 3,
+                    mainAxisSpacing: 4,
+                    crossAxisSpacing: 4,
+                  ),
+                  children: snapshot.data!
+                      .map((movie) => MovieCard(movie: movie))
+                      .toList(),
+                );
+              } else {
+                return const CircularProgressIndicator();
               }
-              if (snapshot.hasData && snapshot.data!.isEmpty) {
-                return const Center(
-                    child: Text("Failed: No entry, please retry."));
-              }
-              return GridView(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 0.5,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                ),
-                children: snapshot.data!
-                    .map((movie) => MovieCard(movie: movie))
-                    .toList(),
-              );
-            } else {
-              return const CircularProgressIndicator();
-            }
-          },
+            },
+          ),
         ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(32.0),
