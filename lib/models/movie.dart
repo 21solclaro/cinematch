@@ -10,6 +10,7 @@ class Movie {
     this.posterPath,
     this.overview,
     this.originalTitle,
+    this.runtime,
     this.releaseDate,
     this.genres,
   });
@@ -19,6 +20,7 @@ class Movie {
   final String? posterPath;
   final String? overview;
   final String? originalTitle;
+  final int? runtime;
   final String? releaseDate;
   final List<String?>? genres;
 
@@ -43,6 +45,7 @@ class Movie {
         posterPath: data['poster_path'],
         overview: data['overview'],
         originalTitle: data['original_title'],
+        runtime: data['runtime'],
         releaseDate: data['release_date'],
         genres: (data['genres'] as List)
             .map((genre) => genre['name'] as String?)

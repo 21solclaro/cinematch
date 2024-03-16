@@ -45,12 +45,22 @@ class MovieDetail extends ConsumerWidget {
                 height: 8.0,
               ),
               const Text(
+                'Runtime',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+              ),
+              movie.runtime != null
+                  ? Text('${movie.runtime!.toString()} min')
+                  : const Text('-'),
+              const SizedBox(
+                height: 8.0,
+              ),
+              const Text(
                 'Release Date',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
               ),
               movie.releaseDate != null
                   ? Text(movie.releaseDate!)
-                  : const Text('null'),
+                  : const Text('-'),
               const SizedBox(
                 height: 8.0,
               ),
@@ -58,7 +68,7 @@ class MovieDetail extends ConsumerWidget {
                 'Overview',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
               ),
-              Text(movie.overview!),
+              movie.overview != null ? Text(movie.overview!) : const Text('-'),
             ],
           ),
         ),
