@@ -28,7 +28,8 @@ class MovieListScreen extends ConsumerWidget {
                 }
                 if (snapshot.hasData && snapshot.data!.isEmpty) {
                   return const Center(
-                      child: Text("Failed: No entry, please retry."));
+                    child: Text("Failed: No entry, please retry."),
+                  );
                 }
                 return GridView(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -52,8 +53,10 @@ class MovieListScreen extends ConsumerWidget {
           child: ElevatedButton(
             onPressed: () {
               ref.invalidate(selectionCriteriaProvider);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
+              );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blueGrey,

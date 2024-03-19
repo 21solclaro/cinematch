@@ -18,7 +18,10 @@ class HomeScreen extends StatelessWidget {
           const Text(
             'Cinematch',
             style: TextStyle(
-                fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold),
+              fontSize: 40,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(height: 40),
           Padding(
@@ -26,10 +29,12 @@ class HomeScreen extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const SubscriptionServiceSelectionScreen()));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        const SubscriptionServiceSelectionScreen(),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -54,30 +59,40 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginScreen()));
-                    },
-                    child: const Text('Login',
-                        style: TextStyle(color: Colors.white))),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
                 const Text(
                   'or',
                   style: TextStyle(color: Colors.white),
                 ),
                 TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUpScreen()));
-                    },
-                    child: const Text('Sign Up',
-                        style: TextStyle(color: Colors.white))),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SignUpScreen(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Sign Up',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

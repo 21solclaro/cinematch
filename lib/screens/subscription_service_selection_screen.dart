@@ -68,9 +68,11 @@ class SubscriptionServiceSelectionScreen extends ConsumerWidget {
         child: ElevatedButton(
           onPressed: selectedProviders.isNotEmpty
               ? () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const GenreSelectionScreen()))
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const GenreSelectionScreen(),
+                    ),
+                  )
               : null,
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blueGrey,

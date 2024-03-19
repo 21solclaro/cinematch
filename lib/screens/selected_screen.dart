@@ -57,9 +57,11 @@ class SelectedScreen extends ConsumerWidget {
         child: ElevatedButton(
           onPressed: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const MovieListScreen()));
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MovieListScreen(),
+              ),
+            );
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blueGrey,

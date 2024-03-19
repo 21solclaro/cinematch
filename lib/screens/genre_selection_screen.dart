@@ -67,9 +67,11 @@ class GenreSelectionScreen extends ConsumerWidget {
         child: ElevatedButton(
           onPressed: selectedGenres.isNotEmpty
               ? () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const RuntimeSelectionScreen()))
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const RuntimeSelectionScreen(),
+                    ),
+                  )
               : null,
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blueGrey,

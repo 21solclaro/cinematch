@@ -22,14 +22,16 @@ class MovieDetail extends ConsumerWidget {
                   ? Wrap(
                       spacing: 4.0,
                       children: movie.genres!
-                          .map((genre) => Chip(
-                                label: Text(genre!),
-                                labelStyle:
-                                    const TextStyle(color: Colors.white),
-                                backgroundColor: Colors.blueGrey,
-                                padding: EdgeInsets.zero,
-                              ))
-                          .toList())
+                          .map(
+                            (genre) => Chip(
+                              label: Text(genre!),
+                              labelStyle: const TextStyle(color: Colors.white),
+                              backgroundColor: Colors.blueGrey,
+                              padding: EdgeInsets.zero,
+                            ),
+                          )
+                          .toList(),
+                    )
                   : const Text('It has no genres.'),
               const SizedBox(
                 height: 8.0,

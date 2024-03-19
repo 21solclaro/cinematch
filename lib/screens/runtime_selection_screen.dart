@@ -41,9 +41,11 @@ class RuntimeSelectionScreen extends ConsumerWidget {
         child: ElevatedButton(
           onPressed: runtime > 0
               ? () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SelectedScreen()))
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SelectedScreen(),
+                    ),
+                  )
               : null,
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blueGrey,

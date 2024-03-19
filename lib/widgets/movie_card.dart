@@ -15,9 +15,11 @@ class MovieCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => MovieDetailScreen(movie: movie)));
+          context,
+          MaterialPageRoute(
+            builder: (context) => MovieDetailScreen(movie: movie),
+          ),
+        );
       },
       child: Card(
         color: Colors.blue,

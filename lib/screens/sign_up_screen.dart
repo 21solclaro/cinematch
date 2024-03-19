@@ -1,3 +1,4 @@
+import 'package:cinematch/screens/user_screen.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -20,6 +21,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     if (isValid) {
       _formKey.currentState!.save();
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const UserScreen()),
+      );
       debugPrint('Username: $_username, Email: $_email, Password: $_password');
     }
   }
@@ -44,7 +49,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   label: const Text('Username'),
                   prefixIcon: const Icon(Icons.person),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   hintText: 'Username',
                 ),
                 validator: (value) {
@@ -75,7 +81,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   label: const Text('Email'),
                   prefixIcon: const Icon(Icons.email),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   hintText: 'Email',
                 ),
                 validator: (value) {
@@ -108,7 +115,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   prefixIcon: const Icon(Icons.password),
                   suffixIcon: IconButton(
                     icon: Icon(
-                        _isObscure ? Icons.visibility_off : Icons.visibility),
+                      _isObscure ? Icons.visibility_off : Icons.visibility,
+                    ),
                     onPressed: () {
                       setState(() {
                         _isObscure = !_isObscure;

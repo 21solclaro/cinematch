@@ -44,7 +44,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   label: const Text('Email'),
                   prefixIcon: const Icon(Icons.email),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   hintText: 'Email',
                 ),
                 validator: (value) {
@@ -77,7 +78,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   prefixIcon: const Icon(Icons.password),
                   suffixIcon: IconButton(
                     icon: Icon(
-                        _isObscure ? Icons.visibility_off : Icons.visibility),
+                      _isObscure ? Icons.visibility_off : Icons.visibility,
+                    ),
                     onPressed: () {
                       setState(() {
                         _isObscure = !_isObscure;
